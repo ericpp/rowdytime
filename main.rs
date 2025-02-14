@@ -683,7 +683,7 @@ async fn main() {
 
                 for (index, item) in the_channel.podcast_value.iter().enumerate() {
                     if let Some(vtype) = &item.value_type {
-                        if vtype == "lighting" {
+                        if vtype == "lightning" {
                             podcast_value = Some(item);
                             break;
                         }
@@ -1129,10 +1129,9 @@ async fn main() {
                     //Value block
                     //If there are more than one, give priority to the lightning one
                     let mut podcast_value = None;
-
                     for (index, item) in the_item.podcast_value.iter().enumerate() {
                         if let Some(vtype) = &item.value_type {
-                            if vtype == "lighting" {
+                            if vtype == "lightning" {
                                 podcast_value = Some(item);
                                 break;
                             }
