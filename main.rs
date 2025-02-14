@@ -50,6 +50,7 @@ struct Feed {
     old_item_content_hash: String,
     categories: HashSet<String>,
 
+    title: String,
     link: String,
     generator: String,
     pub_date: String,
