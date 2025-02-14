@@ -9,11 +9,9 @@ encoding_rs = "0.8.35"
 md5 = "0.7.0"
 mysql = "26.0.0"
 percent-encoding = "2.3.1"
-quick-xml = { version = "0.37.2", features = ["encoding_rs", "serialize"] }
 reqwest = { version = "0.12.12", features = ["json"] }
 rust-ini = "0.21.1"
 serde = { version = "1.0.217", features = ["derive"] }
-serde-xml-rs = "0.6.0"
 serde_json = "1.0.138"
 sqlx = { version = "0.8.3", features = ["mysql", "runtime-tokio", "sqlite"] }
 tokio = { version = "1.43.0", features = ["full"] }
