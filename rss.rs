@@ -115,7 +115,7 @@ pub struct RssItem {
     pub itunes_episode_type: Vec<String>,
 
     #[yaserde(rename = "season", prefix = "itunes")]
-    pub itunes_season: Vec<u64>,
+    pub itunes_season: Vec<i64>,
 
     #[yaserde(rename = "explicit", prefix = "itunes")]
     pub itunes_explicit: Option<String>,

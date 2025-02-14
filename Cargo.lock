@@ -1677,6 +1677,7 @@ dependencies = [
  "md5",
  "mysql",
  "percent-encoding",
+ "regex",
  "reqwest",
  "rust-ini",
  "serde",
