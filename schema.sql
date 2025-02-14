@@ -723,378 +723,335 @@ CREATE TABLE users (
 --
 -- Indexes for table api_tokens
 --
-ALTER TABLE api_tokens
-  ADD KEY userid (userid),
-  ADD KEY createdon (createdon),
-  ADD KEY permlevel (permlevel),
-  ADD KEY rate_limited (rate_limited);
+CREATE INDEX api_tokens_userid ON api_tokens(userid);
+CREATE INDEX api_tokens_createdon ON api_tokens(createdon);
+CREATE INDEX api_tokens_permlevel ON api_tokens(permlevel);
+CREATE INDEX api_tokens_rate_limited ON api_tokens(rate_limited);
 
 --
 -- Indexes for table categories
 --
-ALTER TABLE categories
-  ADD UNIQUE KEY name (name);
+CREATE UNIQUE INDEX categories_name ON categories(name);
 
 --
 -- Indexes for table category_map
 --
-ALTER TABLE category_map
-  ADD UNIQUE KEY categoryid_2 (categoryid,feedid),
-  ADD KEY categoryid (categoryid),
-  ADD KEY feedid (feedid);
+CREATE UNIQUE INDEX category_map_categoryid_2 ON category_map(categoryid,feedid);
+CREATE INDEX category_map_categoryid ON category_map(categoryid);
+CREATE INDEX category_map_feedid ON category_map(feedid);
 
 --
 -- Indexes for table developers
 --
-ALTER TABLE developers
-  ADD UNIQUE KEY email (email);
+CREATE UNIQUE INDEX developers_email ON developers(email);
 
 --
 -- Indexes for table directory_apple
 --
-ALTER TABLE directory_apple
-  ADD UNIQUE KEY itunes_id (itunes_id),
-  ADD KEY description (description),
-  ADD KEY title_non_english (title_non_english),
-  ADD KEY feed_url (feed_url);
+CREATE UNIQUE INDEX directory_apple_itunes_id ON directory_apple(itunes_id);
+CREATE INDEX directory_apple_description ON directory_apple(description);
+CREATE INDEX directory_apple_title_non_english ON directory_apple(title_non_english);
+CREATE INDEX directory_apple_feed_url ON directory_apple(feed_url);
 
 --
 -- Indexes for table feeds_added
 --
-ALTER TABLE feeds_added
-  ADD KEY feedid (feedid),
-  ADD KEY userid (userid),
-  ADD KEY time_added (time_added),
-  ADD KEY source (source),
-  ADD KEY processed (processed),
-  ADD KEY developerid (developerid),
-  ADD KEY stage (stage);
+CREATE INDEX feeds_added_feedid ON feeds_added(feedid);
+CREATE INDEX feeds_added_userid ON feeds_added(userid);
+CREATE INDEX feeds_added_time_added ON feeds_added(time_added);
+CREATE INDEX feeds_added_source ON feeds_added(source);
+CREATE INDEX feeds_added_processed ON feeds_added(processed);
+CREATE INDEX feeds_added_developerid ON feeds_added(developerid);
+CREATE INDEX feeds_added_stage ON feeds_added(stage);
 
 --
 -- Indexes for table flags
 --
-ALTER TABLE flags
+--ALTER TABLE flags
 
 --
 -- Indexes for table genres
 --
-ALTER TABLE genres
-  ADD UNIQUE KEY title (title),
-  ADD KEY subgenre (subgenre),
-  ADD KEY itunes_genre_id (itunes_genre_id);
+CREATE UNIQUE INDEX genres_title ON genres(title);
+CREATE INDEX genres_subgenre ON genres(subgenre);
+CREATE INDEX genres_itunes_genre_id ON genres(itunes_genre_id);
 
 --
 -- Indexes for table newsfeeds
 --
-ALTER TABLE newsfeeds
-  ADD UNIQUE KEY url (url),
-  ADD KEY title (title),
-  ADD KEY itunes_id (itunes_id),
-  ADD KEY updated (updated),
-  ADD KEY errors (errors),
-  ADD KEY lasthttpstatus (lasthttpstatus),
-  ADD KEY lastgoodhttpstatus (lastgoodhttpstatus),
-  ADD KEY dead (dead),
-  ADD KEY original_url (original_url),
-  ADD KEY lastcheck (lastcheck),
-  ADD KEY lastupdate (lastupdate),
-  ADD KEY pullnow (pullnow),
-  ADD KEY parsenow (parsenow),
-  ADD KEY newest_item_pubdate (newest_item_pubdate),
-  ADD KEY update_frequency (update_frequency),
-  ADD KEY language (language),
-  ADD KEY priority (priority),
-  ADD KEY chash (chash),
-  ADD KEY item_count (item_count),
-  ADD KEY podcast_locked (podcast_locked),
-  ADD KEY podcast_owner (podcast_owner);
+CREATE UNIQUE INDEX newsfeeds_url ON newsfeeds(url);
+CREATE INDEX newsfeeds_title ON newsfeeds(title);
+CREATE INDEX newsfeeds_itunes_id ON newsfeeds(itunes_id);
+CREATE INDEX newsfeeds_updated ON newsfeeds(updated);
+CREATE INDEX newsfeeds_errors ON newsfeeds(errors);
+CREATE INDEX newsfeeds_lasthttpstatus ON newsfeeds(lasthttpstatus);
+CREATE INDEX newsfeeds_lastgoodhttpstatus ON newsfeeds(lastgoodhttpstatus);
+CREATE INDEX newsfeeds_dead ON newsfeeds(dead);
+CREATE INDEX newsfeeds_original_url ON newsfeeds(original_url);
+CREATE INDEX newsfeeds_lastcheck ON newsfeeds(lastcheck);
+CREATE INDEX newsfeeds_lastupdate ON newsfeeds(lastupdate);
+CREATE INDEX newsfeeds_pullnow ON newsfeeds(pullnow);
+CREATE INDEX newsfeeds_parsenow ON newsfeeds(parsenow);
+CREATE INDEX newsfeeds_newest_item_pubdate ON newsfeeds(newest_item_pubdate);
+CREATE INDEX newsfeeds_update_frequency ON newsfeeds(update_frequency);
+CREATE INDEX newsfeeds_language ON newsfeeds(language);
+CREATE INDEX newsfeeds_priority ON newsfeeds(priority);
+CREATE INDEX newsfeeds_chash ON newsfeeds(chash);
+CREATE INDEX newsfeeds_item_count ON newsfeeds(item_count);
+CREATE INDEX newsfeeds_podcast_locked ON newsfeeds(podcast_locked);
+CREATE INDEX newsfeeds_podcast_owner ON newsfeeds(podcast_owner);
 
 --
 -- Indexes for table nfcategories
 --
-ALTER TABLE nfcategories
-  ADD UNIQUE KEY feedid (feedid),
-  ADD KEY catid1 (catid1),
-  ADD KEY catid2 (catid2),
-  ADD KEY catid3 (catid3),
-  ADD KEY catid4 (catid4),
-  ADD KEY catid5 (catid5),
-  ADD KEY catid6 (catid6),
-  ADD KEY catid7 (catid7),
-  ADD KEY catid8 (catid8),
-  ADD KEY catid9 (catid9),
-  ADD KEY catid10 (catid10);
+CREATE UNIQUE INDEX nfcategories_feedid ON nfcategories(feedid);
+CREATE INDEX nfcategories_catid1 ON nfcategories(catid1);
+CREATE INDEX nfcategories_catid2 ON nfcategories(catid2);
+CREATE INDEX nfcategories_catid3 ON nfcategories(catid3);
+CREATE INDEX nfcategories_catid4 ON nfcategories(catid4);
+CREATE INDEX nfcategories_catid5 ON nfcategories(catid5);
+CREATE INDEX nfcategories_catid6 ON nfcategories(catid6);
+CREATE INDEX nfcategories_catid7 ON nfcategories(catid7);
+CREATE INDEX nfcategories_catid8 ON nfcategories(catid8);
+CREATE INDEX nfcategories_catid9 ON nfcategories(catid9);
+CREATE INDEX nfcategories_catid10 ON nfcategories(catid10);
 
 --
 -- Indexes for table nfenclosures
 --
-ALTER TABLE nfenclosures
-  ADD KEY iid (itemid),
-  ADD KEY type (type),
-  ADD KEY time (time);
+CREATE INDEX nfenclosures_iid ON nfenclosures(itemid);
+CREATE INDEX nfenclosures_type ON nfenclosures(type);
+CREATE INDEX nfenclosures_time ON nfenclosures(time);
 
 --
 -- Indexes for table nfetags
 --
-ALTER TABLE nfetags
-  ADD UNIQUE KEY feedid (feedid) USING BTREE,
-  ADD KEY updatedon (updatedon);
+CREATE UNIQUE INDEX nfetags_feedid ON nfetags(feedid);
+CREATE INDEX nfetags_updatedon ON nfetags(updatedon);
 
 --
 -- Indexes for table nffunding
 --
-ALTER TABLE nffunding
-  ADD KEY url (url) USING BTREE;
+CREATE INDEX nffunding_url ON nffunding(url);
 
 --
 -- Indexes for table nfguids
 --
-ALTER TABLE nfguids
-  ADD UNIQUE KEY feedid (feedid),
-  ADD KEY guid (guid) USING BTREE;
+CREATE UNIQUE INDEX nfguids_feedid ON nfguids(feedid);
+CREATE INDEX nfguids_guid ON nfguids(guid);
 
 --
 -- Indexes for table nfhashes
 --
-ALTER TABLE nfhashes
-  ADD UNIQUE KEY feedid (feedid) USING BTREE,
-  ADD KEY hash (hash),
-  ADD KEY updatedon (updatedon);
+CREATE UNIQUE INDEX nfhashes_feedid ON nfhashes(feedid);
+CREATE INDEX nfhashes_hash ON nfhashes(hash);
+CREATE INDEX nfhashes_updatedon ON nfhashes(updatedon);
 
 --
 -- Indexes for table nfimages
 --
-ALTER TABLE nfimages
-  ADD UNIQUE KEY crc32_2 (crc32,feedid,id,resolution),
-  ADD KEY feedid (feedid),
-  ADD KEY crc32 (crc32),
-  ADD KEY resolution (resolution),
-  ADD KEY type (type);
+CREATE UNIQUE INDEX nfimages_crc32_2 ON nfimages(crc32,feedid,id,resolution);
+CREATE INDEX nfimages_feedid ON nfimages(feedid);
+CREATE INDEX nfimages_crc32 ON nfimages(crc32);
+CREATE INDEX nfimages_resolution ON nfimages(resolution);
+CREATE INDEX nfimages_type ON nfimages(type);
 
 --
 -- Indexes for table nfitems
 --
-ALTER TABLE nfitems
-  ADD UNIQUE KEY feedid_2 (feedid,guid) USING BTREE,
-  ADD KEY timeadded (timeadded),
-  ADD KEY feedid (feedid),
-  ADD KEY timestamp (timestamp),
-  ADD KEY purgeable (purge);
+CREATE UNIQUE INDEX nfitems_feedid_2 ON nfitems(feedid,guid);
+CREATE INDEX nfitems_timeadded ON nfitems(timeadded);
+CREATE INDEX nfitems_feedid ON nfitems(feedid);
+CREATE INDEX nfitems_timestamp ON nfitems(timestamp);
+CREATE INDEX nfitems_purgeable ON nfitems(purge);
 
 --
 -- Indexes for table nfitem_chapters
 --
-ALTER TABLE nfitem_chapters
-  ADD KEY type (type);
+CREATE INDEX nfitem_chapters_type ON nfitem_chapters(type);
 
 --
 -- Indexes for table nfitem_images
 --
-ALTER TABLE nfitem_images
-  ADD UNIQUE KEY crc32_2 (crc32,episodeid,id,resolution),
-  ADD KEY crc32 (crc32),
-  ADD KEY resolution (resolution),
-  ADD KEY type (type),
-  ADD KEY episodeid (episodeid) USING BTREE;
+CREATE UNIQUE INDEX nfitem_images_crc32_2 ON nfitem_images(crc32,episodeid,id,resolution);
+CREATE INDEX nfitem_images_crc32 ON nfitem_images(crc32);
+CREATE INDEX nfitem_images_resolution ON nfitem_images(resolution);
+CREATE INDEX nfitem_images_type ON nfitem_images(type);
+CREATE INDEX nfitem_images_episodeid ON nfitem_images(episodeid);
 
 --
 -- Indexes for table nfitem_persons
 --
-ALTER TABLE nfitem_persons
-  ADD UNIQUE KEY itemid_2 (itemid,name,href),
-  ADD KEY itemid (itemid) USING BTREE,
-  ADD KEY href (href),
-  ADD KEY grp (grp),
-  ADD KEY role (role),
-  ADD KEY name (name);
+CREATE UNIQUE INDEX nfitem_persons_itemid_2 ON nfitem_persons(itemid,name,href);
+CREATE INDEX nfitem_persons_itemid ON nfitem_persons(itemid);
+CREATE INDEX nfitem_persons_href ON nfitem_persons(href);
+CREATE INDEX nfitem_persons_grp ON nfitem_persons(grp);
+CREATE INDEX nfitem_persons_role ON nfitem_persons(role);
+CREATE INDEX nfitem_persons_name ON nfitem_persons(name);
 
 --
 -- Indexes for table nfitem_socialinteract
 --
-ALTER TABLE nfitem_socialinteract
-  ADD UNIQUE KEY itemid_2 (itemid,uri),
-  ADD KEY priority (priority),
-  ADD KEY itemid (itemid),
-  ADD KEY protocol (protocol),
-  ADD KEY accountId (accountId);
+CREATE UNIQUE INDEX nfitem_socialinteract_itemid_2 ON nfitem_socialinteract(itemid,uri);
+CREATE INDEX nfitem_socialinteract_priority ON nfitem_socialinteract(priority);
+CREATE INDEX nfitem_socialinteract_itemid ON nfitem_socialinteract(itemid);
+CREATE INDEX nfitem_socialinteract_protocol ON nfitem_socialinteract(protocol);
+CREATE INDEX nfitem_socialinteract_accountId ON nfitem_socialinteract(accountId);
 
 --
 -- Indexes for table nfitem_soundbites
 --
-ALTER TABLE nfitem_soundbites
-  ADD KEY itemid (itemid) USING BTREE,
-  ADD KEY duration (duration);
+CREATE INDEX nfitem_soundbites_itemid ON nfitem_soundbites(itemid);
+CREATE INDEX nfitem_soundbites_duration ON nfitem_soundbites(duration);
 
 --
 -- Indexes for table nfitem_transcripts
 --
-ALTER TABLE nfitem_transcripts
-  ADD UNIQUE KEY itemid_2 (itemid,type,language),
-  ADD KEY type (type),
-  ADD KEY captions (captions),
-  ADD KEY language (language),
-  ADD KEY itemid (itemid) USING BTREE;
+CREATE UNIQUE INDEX nfitem_transcripts_itemid_2 ON nfitem_transcripts(itemid,type,language);
+CREATE INDEX nfitem_transcripts_type ON nfitem_transcripts(type);
+CREATE INDEX nfitem_transcripts_captions ON nfitem_transcripts(captions);
+CREATE INDEX nfitem_transcripts_language ON nfitem_transcripts(language);
+CREATE INDEX nfitem_transcripts_itemid ON nfitem_transcripts(itemid);
 
 --
 -- Indexes for table nfitem_value
 --
-ALTER TABLE nfitem_value
-  ADD KEY type (type),
-  ADD KEY createdon (createdon);
+CREATE INDEX nfitem_value_type ON nfitem_value(type);
+CREATE INDEX nfitem_value_createdon ON nfitem_value(createdon);
 
 --
 -- Indexes for table nflinkage
 --
-ALTER TABLE nflinkage
-  ADD KEY feedid (feedid);
+CREATE INDEX nflinkage_feedid ON nflinkage(feedid);
 
 --
 -- Indexes for table nfliveitems
 --
-ALTER TABLE nfliveitems
-  ADD UNIQUE KEY feedid_2 (feedid,guid) USING BTREE,
-  ADD KEY timeadded (timeadded),
-  ADD KEY feedid (feedid),
-  ADD KEY timestamp (timestamp),
-  ADD KEY purgeable (purge),
-  ADD KEY startTime (start_time),
-  ADD KEY status (status);
+CREATE UNIQUE INDEX nfliveitems_feedid_2 ON nfliveitems(feedid,guid);
+CREATE INDEX nfliveitems_timeadded ON nfliveitems(timeadded);
+CREATE INDEX nfliveitems_feedid ON nfliveitems(feedid);
+CREATE INDEX nfliveitems_timestamp ON nfliveitems(timestamp);
+CREATE INDEX nfliveitems_purgeable ON nfliveitems(purge);
+CREATE INDEX nfliveitems_startTime ON nfliveitems(start_time);
+CREATE INDEX nfliveitems_status ON nfliveitems(status);
 
 --
 -- Indexes for table nflocations
 --
-ALTER TABLE nflocations
-  ADD UNIQUE KEY feedid (feedid);
+CREATE UNIQUE INDEX nflocations_feedid ON nflocations(feedid);
 
 --
 -- Indexes for table nfmediums
 --
-ALTER TABLE nfmediums
-  ADD UNIQUE KEY feedid (feedid),
-  ADD KEY medium (medium) USING BTREE;
+CREATE UNIQUE INDEX nfmediums_feedid ON nfmediums(feedid);
+CREATE INDEX nfmediums_medium ON nfmediums(medium);
 
 --
 -- Indexes for table nfpersons
 --
-ALTER TABLE nfpersons
-  ADD KEY role (role),
-  ADD KEY name (name),
-  ADD KEY feedid (feedid) USING BTREE;
+CREATE INDEX nfpersons_role ON nfpersons(role);
+CREATE INDEX nfpersons_name ON nfpersons(name);
+CREATE INDEX nfpersons_feedid ON nfpersons(feedid);
 
 --
 -- Indexes for table nfproblematic
 --
-ALTER TABLE nfproblematic
-  ADD UNIQUE KEY feedid (feedid) USING BTREE,
-  ADD KEY hash (reason),
-  ADD KEY updatedon (updatedon);
+CREATE UNIQUE INDEX nfproblematic_feedid ON nfproblematic(feedid);
+CREATE INDEX nfproblematic_hash ON nfproblematic(reason);
+CREATE INDEX nfproblematic_updatedon ON nfproblematic(updatedon);
 
 --
 -- Indexes for table nfpublish
 --
-ALTER TABLE nfpublish
-  ADD KEY feedid (feedid),
-  ADD KEY pub_time (pub_time),
-  ADD KEY pub_dow (pub_dow),
-  ADD KEY pub_dom (pub_dom),
-  ADD KEY pub_slice (pub_slice);
+CREATE INDEX nfpublish_feedid ON nfpublish(feedid);
+CREATE INDEX nfpublish_pub_time ON nfpublish(pub_time);
+CREATE INDEX nfpublish_pub_dow ON nfpublish(pub_dow);
+CREATE INDEX nfpublish_pub_dom ON nfpublish(pub_dom);
+CREATE INDEX nfpublish_pub_slice ON nfpublish(pub_slice);
 
 --
 -- Indexes for table nfschedule
 --
-ALTER TABLE nfschedule
-  ADD KEY sun (sun),
-  ADD KEY mon (mon),
-  ADD KEY tue (tue),
-  ADD KEY wed (wed),
-  ADD KEY thu (thu),
-  ADD KEY fri (fri),
-  ADD KEY sat (sat);
+CREATE INDEX nfschedule_sun ON nfschedule(sun);
+CREATE INDEX nfschedule_mon ON nfschedule(mon);
+CREATE INDEX nfschedule_tue ON nfschedule(tue);
+CREATE INDEX nfschedule_wed ON nfschedule(wed);
+CREATE INDEX nfschedule_thu ON nfschedule(thu);
+CREATE INDEX nfschedule_fri ON nfschedule(fri);
+CREATE INDEX nfschedule_sat ON nfschedule(sat);
 
 --
 -- Indexes for table nfsoundbites
 --
-ALTER TABLE nfsoundbites
-  ADD KEY url (url) USING BTREE;
+CREATE INDEX nfsoundbites_url ON nfsoundbites(url);
 
 --
 -- Indexes for table nfsphinx
 --
-ALTER TABLE nfsphinx
-  ADD KEY updatedon (updatedon);
+CREATE INDEX nfsphinx_updatedon ON nfsphinx(updatedon);
 
 --
 -- Indexes for table nfsubscriptions
 --
-ALTER TABLE nfsubscriptions
-  ADD KEY apitoken (apitoken),
-  ADD KEY subscriberid (subscriberid),
-  ADD KEY feedid (feedid),
-  ADD KEY updated (updated);
+CREATE INDEX nfsubscriptions_apitoken ON nfsubscriptions(apitoken);
+CREATE INDEX nfsubscriptions_subscriberid ON nfsubscriptions(subscriberid);
+CREATE INDEX nfsubscriptions_feedid ON nfsubscriptions(feedid);
+CREATE INDEX nfsubscriptions_updated ON nfsubscriptions(updated);
 
 --
 -- Indexes for table nfvalue
 --
-ALTER TABLE nfvalue
-  ADD KEY type (type),
-  ADD KEY createdon (createdon);
+CREATE INDEX nfvalue_type ON nfvalue(type);
+CREATE INDEX nfvalue_createdon ON nfvalue(createdon);
 
 --
 -- Indexes for table owners
 --
-ALTER TABLE owners
-  ADD KEY email (email) USING BTREE,
-  ADD KEY feedid (feedid);
+CREATE INDEX owners_email ON owners(email);
+CREATE INDEX owners_feedid ON owners(feedid);
 
 --
 -- Indexes for table podcasts
 --
-ALTER TABLE podcasts
-  ADD UNIQUE KEY upid (upid) USING BTREE,
-  ADD UNIQUE KEY feedid (feedid) USING BTREE,
-  ADD UNIQUE KEY owner_and_feed (ownerid,feedid),
-  ADD KEY ownerid (ownerid),
-  ADD KEY validation_code (validation_code);
+CREATE UNIQUE INDEX podcasts_upid ON podcasts(upid);
+CREATE UNIQUE INDEX podcasts_feedid ON podcasts(feedid);
+CREATE UNIQUE INDEX podcasts_owner_and_feed ON podcasts(ownerid,feedid);
+CREATE INDEX podcasts_ownerid ON podcasts(ownerid);
+CREATE INDEX podcasts_validation_code ON podcasts(validation_code);
 
 --
 -- Indexes for table prefs
 --
-ALTER TABLE prefs
 
 --
 -- Indexes for table pubsub
 --
-ALTER TABLE pubsub
-  ADD UNIQUE KEY feedid (feedid),
-  ADD KEY last_sub_time (lease_expire),
-  ADD KEY sub_url (hub_url);
+CREATE UNIQUE INDEX pubsub_feedid ON pubsub(feedid);
+CREATE INDEX pubsub_last_sub_time ON pubsub(lease_expire);
+CREATE INDEX pubsub_sub_url ON pubsub(hub_url);
 
 --
 -- Indexes for table sessions
 --
-ALTER TABLE sessions
-  ADD KEY userid (userid);
+CREATE INDEX sessions_userid ON sessions(userid);
 
 --
 -- Indexes for table subgenres
 --
-ALTER TABLE subgenres
-  ADD UNIQUE KEY title (title);
+CREATE UNIQUE INDEX subgenres_title ON subgenres(title);
 
 --
 -- Indexes for table tos_accept
 --
-ALTER TABLE tos_accept
-  ADD UNIQUE KEY userid_2 (userid,version),
-  ADD KEY userid (userid),
-  ADD KEY version (version);
+CREATE UNIQUE INDEX tos_accept_userid_2 ON tos_accept(userid,version);
+CREATE INDEX tos_accept_userid ON tos_accept(userid);
+CREATE INDEX tos_accept_version ON tos_accept(version);
 
 --
 -- Indexes for table users
 --
-ALTER TABLE users
-  ADD KEY developer (developer) USING BTREE,
-  ADD KEY tos (tos);
+CREATE INDEX users_developer ON users(developer);
+CREATE INDEX users_tos ON users(tos);
 
 --
 -- AUTO_INCREMENT for dumped tables

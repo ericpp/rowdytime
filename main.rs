@@ -215,51 +215,42 @@ async fn main() {
     // let time_20_days_ago = time_started - (86400 * 20);
     // let time_10_days_ago = time_started - (86400 * 10);
     // let time_5_days_ago = time_started - (86400 * 5);
+
     let mut still_waiting_for_db = true;
     // let waiting_for_db_count = 240;
+
     let mut feed_work_count = 0;
     let mut total_items_added = 0;
-    // let stmt_pre_catmap = "INSERT INTO nfcategories (feedid, catid1, catid2, catid3, catid4, catid5, catid6, catid7, catid8, catid9, catid10) VALUES ";
-    // let stmt_post_catmap = " ON DUPLICATE KEY UPDATE catid1 = VALUES(catid1),catid2 = VALUES(catid2),catid3 = VALUES(catid3),catid4 = VALUES(catid4),catid5 = VALUES(catid5),catid6 = VALUES(catid6),catid7 = VALUES(catid7),catid8 = VALUES(catid8),catid9 = VALUES(catid9),catid10 = VALUES(catid10) ";
+
     // let sql_statement_catmap = "".to_string();
     let mut inserts_catmap = "".to_string();
-    // let stmt_pre_pubsub = "INSERT INTO pubsub (feedid, hub_url, self_url) VALUES ";
-    // let stmt_post_pubsub = " ON DUPLICATE KEY UPDATE hub_url = VALUES(hub_url),self_url = VALUES(self_url) ";
+
     let mut inserts_pubsub = "".to_string();
     let mut inserts_pubsub_bind: Vec<String> = vec![];
-    // let stmt_pre_value = "INSERT INTO nfvalue (feedid, value_block, type, createdon) VALUES ";
-    // let stmt_post_value = " ON DUPLICATE KEY UPDATE value_block = VALUES(value_block), type = VALUES(type) ";
+
     // let inserts_value = "".to_string();
     // let inserts_value_bind: Vec<String> = vec![];
-    // let stmt_pre_chapters = "INSERT INTO nfitem_chapters (itemid, url, type) VALUES ";
-    // let stmt_post_chapters = " ON DUPLICATE KEY UPDATE url = VALUES(url), type = VALUES(type) ";
+
     let mut inserts_chapters = "".to_string();
     let mut inserts_chapters_bind: Vec<String> = vec![];
-    // let stmt_pre_transcripts = "INSERT INTO nfitem_transcripts (itemid, url, type) VALUES ";
-    // let stmt_post_transcripts = " ON DUPLICATE KEY UPDATE url = VALUES(url), type = VALUES(type) ";
+
     let mut inserts_transcripts = "".to_string();
     let mut inserts_transcripts_bind: Vec<String> = vec![];
-    // let stmt_pre_funding = "INSERT INTO nffunding (feedid, url, message) VALUES ";
-    // let stmt_post_funding = " ON DUPLICATE KEY UPDATE url = VALUES(url), message = VALUES(message) ";
+
     // let inserts_funding = "".to_string();
     // let inserts_funding_bind: Vec<String> = vec![];
-    // let stmt_pre_soundbites = "INSERT INTO nfitem_soundbites (itemid, title, start_time, duration) VALUES ";
-    // let stmt_post_soundbites = " ON DUPLICATE KEY UPDATE title = VALUES(title) ";
+
     let mut inserts_soundbites = "".to_string();
     let mut inserts_soundbites_bind: Vec<String> = vec![];
-    // let stmt_pre_persons = "INSERT INTO nfitem_persons (itemid, name, role, grp, img, href) VALUES ";
-    // let stmt_post_persons = " ON DUPLICATE KEY UPDATE name = VALUES(name), role = VALUES(role), grp = VALUES(grp), img = VALUES(img), href = VALUES(href) ";
+
     let mut inserts_persons = "".to_string();
     let mut inserts_persons_bind: Vec<String> = vec![];
-    // let stmt_pre_guid = "INSERT INTO nfguids (feedid, guid) VALUES ";
-    // let stmt_post_guid = " ON DUPLICATE KEY UPDATE guid = VALUES(guid) ";
+
     // let inserts_guid = "".to_string();
     // let inserts_guid_bind: Vec<String> = vec![];
-    // let stmt_pre_value_item = "INSERT INTO nfitem_value (itemid, value_block, type, createdon) VALUES ";
-    // let stmt_post_value_item = " ON DUPLICATE KEY UPDATE value_block = VALUES(value_block), type = VALUES(type) ";
+
     let mut inserts_value_item = "".to_string();
     let mut inserts_value_item_bind: Vec<String> = vec![];
-
 
     let mut checkall = false;
     let mut checkone = false;
@@ -1450,7 +1441,7 @@ async fn main() {
                         replaceable,
                         cg_table_newsfeed_items
                     );
-println!("{} {:#?}", sql_item_insert, &item);
+
                     let current_timestamp = chrono::Utc::now().timestamp();
 
                     let result = sqlx::query(&sql_item_insert)
@@ -1567,7 +1558,7 @@ println!("{} {:#?}", sql_item_insert, &item);
                             inserts_value_item_bind.push((chrono::Utc::now().timestamp()).to_string());
                         }
 
-                        // dbcalls--;
+                        // dbcalls -= 1;
                     }
                 }
                 //-----------------ITEM PROCESSING INTO DB----------------------------------
@@ -1687,7 +1678,7 @@ println!("{} {:#?}", sql_item_insert, &item);
                         println!("Error updating feed record for feed: [{}]", feed.url);
                     }
 
-                    // dbcalls--;
+                    // dbcalls -= 1;
             }
 
         } else {
@@ -1719,6 +1710,29 @@ println!("{} {:#?}", sql_item_insert, &item);
 
         feed_work_count += 1;
     }
+    if !inserts_catmap.is_empty() {
+        insert_catmap(&pool, &inserts_catmap).await.unwrap();
+    }
+    if !inserts_pubsub.is_empty() {
+        insert_pubsub(&pool, &inserts_pubsub, &inserts_pubsub_bind).await.unwrap();
+    }
+    if !inserts_chapters.is_empty() {
+        insert_chapters(&pool, &inserts_chapters, &inserts_chapters_bind).await.unwrap();
+    }
+    if !inserts_transcripts.is_empty() {
+        insert_transcripts(&pool, &inserts_transcripts, &inserts_transcripts_bind).await.unwrap();
+    }
+    if !inserts_soundbites.is_empty() {
+        insert_soundbites(&pool, &inserts_soundbites, &inserts_soundbites_bind).await.unwrap();
+    }
+    if !inserts_persons.is_empty() {
+        insert_persons(&pool, &inserts_persons, &inserts_persons_bind).await.unwrap();
+    }
+    if !inserts_value_item.is_empty() {
+        insert_value_item(&pool, &inserts_value_item, &inserts_value_item_bind).await.unwrap();
+    }
+
+    println!("DONE");
 }
 
 fn loggit(cfg: &LoggingConfig, lognum: u8, message: &str) -> Result<bool, Box<dyn Error>> {
@@ -2239,4 +2253,96 @@ fn time_to_seconds(time_string: &str) -> u32 {
     }
 
     seconds
+}
+
+async fn insert_db_values(pool: &sqlx::SqlitePool, db_query: &str, db_values: &str, db_binds: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    if db_values.is_empty() {
+        return Ok(());
+    }
+
+    // Remove trailing comma
+    let mut db_values = db_values.to_string();
+
+    if db_values.ends_with(",") {
+        db_values.pop();
+    }
+
+    let query = format!("{} {}", db_query, db_values);
+
+    let mut result = sqlx::query(&query);
+
+    for bind in db_binds {
+        result = result.bind(bind);
+    }
+
+    let result = result.execute(pool).await;
+
+    match result {
+        Ok(_) => Ok(()),
+        Err(err) => {
+            println!("Failed to insert db values: {}", err);
+            Err(Box::new(err))
+        }
+    }
+}
+
+async fn insert_catmap(pool: &sqlx::SqlitePool, inserts_catmap: &str) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfcategories (feedid, catid1, catid2, catid3, catid4, catid5, catid6, catid7, catid8, catid9, catid10) VALUES ";
+    let binds = vec![];
+
+    insert_db_values(pool, query, inserts_catmap, &binds).await
+}
+
+async fn insert_pubsub(pool: &sqlx::SqlitePool, inserts_pubsub: &str, inserts_pubsub_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO pubsub (feedid, hub_url, self_url) VALUES ";
+
+    insert_db_values(pool, query, inserts_pubsub, inserts_pubsub_bind).await
+}
+
+async fn insert_value(pool: &sqlx::SqlitePool, inserts_value: &str, inserts_value_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfvalue (feedid, value_block, type, createdon) VALUES ";
+
+    insert_db_values(pool, query, inserts_value, inserts_value_bind).await
+}
+
+async fn insert_chapters(pool: &sqlx::SqlitePool, inserts_chapters: &str, inserts_chapters_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfitem_chapters (itemid, url, type) VALUES ";
+
+    insert_db_values(pool, query, inserts_chapters, inserts_chapters_bind).await
+}
+
+async fn insert_transcripts(pool: &sqlx::SqlitePool, inserts_transcripts: &str, inserts_transcripts_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfitem_transcripts (itemid, url, type) VALUES ";
+
+    insert_db_values(pool, query, inserts_transcripts, inserts_transcripts_bind).await
+}
+
+async fn insert_funding(pool: &sqlx::SqlitePool, inserts_funding: &str, inserts_funding_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nffunding (feedid, url, message) VALUES ";
+
+    insert_db_values(pool, query, inserts_funding, inserts_funding_bind).await
+}
+
+async fn insert_soundbites(pool: &sqlx::SqlitePool, inserts_soundbites: &str, inserts_soundbites_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfitem_soundbites (itemid, title, start_time, duration) VALUES ";
+
+    insert_db_values(pool, query, inserts_soundbites, inserts_soundbites_bind).await
+}
+
+async fn insert_persons(pool: &sqlx::SqlitePool, inserts_persons: &str, inserts_persons_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfitem_persons (itemid, name, role, grp, img, href) VALUES ";
+
+    insert_db_values(pool, query, inserts_persons, inserts_persons_bind).await
+}
+
+async fn insert_guid(pool: &sqlx::SqlitePool, inserts_guid: &str, inserts_guid_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfguids (feedid, guid) VALUES ";
+
+    insert_db_values(pool, query, inserts_guid, inserts_guid_bind).await
+}
+
+async fn insert_value_item(pool: &sqlx::SqlitePool, inserts_value_item: &str, inserts_value_item_bind: &Vec<String>) -> Result<(), Box<dyn Error>> {
+    let query = "INSERT OR REPLACE INTO nfitem_value (itemid, value_block, type, createdon) VALUES ";
+
+    insert_db_values(pool, query, inserts_value_item, inserts_value_item_bind).await
 }
